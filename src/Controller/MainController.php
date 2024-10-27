@@ -14,8 +14,9 @@ class MainController extends AbstractController
     public function index(): Response
     {
         // le this->render est amené par l'abstractcontroller, si on avait pas AbstractController il faudrait charger twig et faire le render avec twig pour charger le fichier dans main index.html.twig
+        $prenoms = ['Thomas', 'Guillaume', 'Jean'];
         return $this->render('main/index.html.twig', [
-            'prenom' => 'Guillaume',
+            'prenoms' => $prenoms,
             // on peut changer le nom j'ai mis Guillaume
             // entre les accolades dans main/twig ce sont des variables qui sont passé par le render du controller
         ]);

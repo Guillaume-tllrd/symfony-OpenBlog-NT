@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello !{% endblock %}
+{% block title %}Hello !
+{% endblock %}
 
 {% block body %}
-  
-    <h1>Hello {{ prenom }}! ✅</h1>
-
-
+	{% for prenom in prenoms %}
+		<h1>{{prenom}}</h1>
+	{% endfor %}
+	{# {% if affichePrenom %}
+			<h1>Hello
+				{{ prenom }}! ✅</h1>
+		{% else %}
+			<h1>
+				Bonjour
+			</h1>
+		{% endif %} #}
+	{# on peut faire des conditions en mettant en var dans le controller #}
 {% endblock %}
-  
