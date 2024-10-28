@@ -6,26 +6,29 @@ use App\Repository\UsersRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-#[ORM\UniqueConstraint(name: 'UNIQ_IDENTIFIER_NICKNAME', fields: ['nickname'])]
-// le fait d'avoir fait le make user dans le terminal on a implementation qui a été rajouté à la classe
+#[UniqueEntity(fields: ['nickname'], message: 'Il y a déjà un compte avec ce pseudo')]
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
-
-    #[ORM\Id] // clé primaire
-    #[ORM\GeneratedValue] // autoincrément
-    #[ORM\Column] // colone dans la bdd
+    #[ORM\Id]
+    #[ORM\GeneratedValue] //autoincrémentation
+    #[ORM\Column] //création de la colone dans la bdd
     private ?int $id = null;
 
-    #[ORM\Column(length: 180, unique: true)] // identifiant unique
+    #[ORM\Column(length: 180, unique: true)]
+    #[Assert\Length(
+        min: 3,
+        max: 25,
+        minMessage: 'Minimum {{ limit }} caractères',
+        maxMessage: 'Maximum {{ limit }} caractères'
+    )]
     private ?string $nickname = null;
 
-    /**
-     * @var list<string> The user roles
-     */
     #[ORM\Column]
     private array $roles = [];
 
@@ -36,21 +39,18 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Email(
+        message: 'L\'adresse e-mail {{ value }} est incorrecte'
+    )]
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?bool $isVerified = null;
+    private ?bool $isVerified = false;
 
-    /**
-     * @var Collection<int, Posts>
-     */
-    #[ORM\OneToMany(targetEntity: Posts::class, mappedBy: 'users', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
 
-    /**
-     * @var Collection<int, Comments>
-     */
-    #[ORM\OneToMany(targetEntity: Comments::class, mappedBy: 'users', orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'users', targetEntity: Comments::class, orphanRemoval: true)]
     private Collection $comments;
 
     public function __construct()
@@ -63,9 +63,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->id;
     }
-    // pas de setId car c'est un auto-incrément
 
-    // getNickanme va permettre d'obtenir le ^pseudo et setNickane va permettre de l'écrire/ le créer
     public function getNickname(): ?string
     {
         return $this->nickname;
@@ -90,8 +88,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @see UserInterface
-     *
-     * @return list<string>
      */
     public function getRoles(): array
     {
@@ -102,9 +98,6 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
-    /**
-     * @param list<string> $roles
-     */
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
@@ -115,7 +108,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @see PasswordAuthenticatedUserInterface
      */
-    public function getPassword(): ?string
+    public function getPassword(): string
     {
         return $this->password;
     }
@@ -153,7 +146,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->isVerified;
     }
 
-    public function setVerified(bool $isVerified): static
+    public function setIsVerified(bool $isVerified): static
     {
         $this->isVerified = $isVerified;
 
@@ -220,3 +213,4 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 }
+//  ensuite pour faire la migration il faut se mettre sur le container php : docker-compose exec php /bin /bash et faire la commande : symfony console make:migration puis symfony console doctrine:migrations:migrate

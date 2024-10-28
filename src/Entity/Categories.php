@@ -22,17 +22,12 @@ class Categories
     private ?string $slug = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'categories')]
+    #[ORM\JoinColumn(onDelete: 'CASCADE')]
     private ?self $parent = null;
 
-    /**
-     * @var Collection<int, self>
-     */
-    #[ORM\OneToMany(targetEntity: self::class, mappedBy: 'parent')]
+    #[ORM\OneToMany(mappedBy: 'parent', targetEntity: self::class)]
     private Collection $categories;
 
-    /**
-     * @var Collection<int, Posts>
-     */
     #[ORM\ManyToMany(targetEntity: Posts::class, mappedBy: 'categories')]
     private Collection $posts;
 
@@ -90,6 +85,7 @@ class Categories
     {
         return $this->categories;
     }
+    // on va pouvoir aller chercher toutes les catégories enfant d'un parent, ex: catégorie informatique avec en sous-catégorie développement, entretien, etc je vais pouvoir aller chercher les sous-catégories avec ce getCategorie
 
     public function addCategory(self $category): static
     {
