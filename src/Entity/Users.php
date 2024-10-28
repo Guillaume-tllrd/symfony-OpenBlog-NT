@@ -12,7 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsersRepository::class)]
-#[UniqueEntity(fields: ['nickname'], message: 'Il y a déjà un compte avec ce pseudo')]
+#[UniqueEntity(fields: ['nickname'], message: 'Il y a déjà un compte avec ce pseudo')] // créé avec symfony control make: registration-form
 class Users implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -45,7 +45,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
-    private ?bool $isVerified = false;
+    private ?bool $isVerified = false; //isverifed est faux tant que la personne n'a pas vérifié son compte car il ne peut pas être null
 
     #[ORM\OneToMany(mappedBy: 'users', targetEntity: Posts::class, orphanRemoval: true)]
     private Collection $posts;
@@ -92,7 +92,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
+        // guarantee every user at least has ROLE_USER, n'importe quel user à le role user
         $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
