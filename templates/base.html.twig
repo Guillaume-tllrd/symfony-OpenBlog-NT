@@ -19,6 +19,13 @@
 	</head>
 	<body>
 		{% include "_partials/_navbar.html.twig" %}
+
+		{# pour faire afficher tous les messages flash de app.flashes on fait 2 boucle for dans mon block body #}
+		{% for messages in app.flashes %}
+			{% for message in messages %}
+				<p>{{ message|raw}}</p>
+			{% endfor %}
+		{% endfor %}
 		{% block body %}{% endblock %}
 		{% include "_partials/_footer.html.twig" %}
 	</body>

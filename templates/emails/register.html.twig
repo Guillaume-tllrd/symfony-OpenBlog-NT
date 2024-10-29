@@ -1,0 +1,12 @@
+<h1>Activation de votre compte sur Openblog</h1>
+<p>Bonjour
+	{{ user.nickname }},</p>
+{# on récupère la  variable user dans entity #}
+<p>Pour activer votre compte sur OpenBlog cliquez sur le lien ci-dessous.</p>
+{# on met le token dans un lien #}
+<p>
+	{# on appele verify_user de la function verifyUser dans registrationController, mais on doit rajouter la function absolute_url pour générer son absolut cad complete car sinon dans le mail il recoit qu'à partir de verif, et la on à l'url complète #}
+	<a href="{{ absolute_url(path('verify_user', {token: token})) }}">Lien</a>
+</p>
+{{ token }}
+<p>Merci</p>
