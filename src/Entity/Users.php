@@ -20,6 +20,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column] //création de la colone dans la bdd
     private ?int $id = null;
 
+    // pour la validation du nombre de caractère on utilise #[Assert\Length], On sait que c'est Limit car c'est écrit dans la doc
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\Length(
         min: 3,
@@ -39,6 +40,7 @@ class Users implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    //pour rajouter un message au moment de la validation de l'email on utilise Symfony\Component\Validator\Constraints as Assert; que l'on est allé chercher sur la doc. Ca permet de mettre un type Email directement dans l'entité
     #[Assert\Email(
         message: 'L\'adresse e-mail {{ value }} est incorrecte'
     )]
