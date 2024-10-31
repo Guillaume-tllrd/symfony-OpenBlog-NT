@@ -38,6 +38,10 @@ class AddPostFormType extends AbstractType
                 'mapped' => false,
                 // new Image ici est une contrainte de fichier use Symfony\Component\Validator\Constraints\Image;
                 // si on veut insérer plusieurs images il faudrait rajouter "multiple" => true, et faire un new All() et mettre new Image à l'intérieur
+                // pour rajouter des attributs html au moment de parcourir les images:
+                'attr' => [
+                    'accept' => 'image/png, image/jpeg, image/webp'
+                ],
                 'constraints' => [
                     new Image(
                         minWidth: 200,
@@ -47,7 +51,8 @@ class AddPostFormType extends AbstractType
                         allowPortrait: false, // image que en paysage
                         mimeTypes: [
                             "image/jpeg",
-                            "image/png"
+                            "image/png",
+                            'image/webp'
                         ]
                     )
                 ]

@@ -5,6 +5,7 @@ namespace App\Controller\Profile;
 use App\Entity\Posts;
 use App\Form\AddPostFormType;
 use App\Repository\UsersRepository;
+use App\Service\PictureService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,8 @@ class PostsController extends AbstractController
         Request $request,
         SluggerInterface $slugger,
         EntityManagerInterface $em,
-        UsersRepository $usersRepository
+        UsersRepository $usersRepository,
+        PictureService $pictureService
     ): Response {
         $post = new Posts();
 
@@ -40,9 +42,15 @@ class PostsController extends AbstractController
             $post->setSlug(strtolower($slugger->slug($post->getTitle())));
 
             // Pour aller chercher le user n°1 temporairement àprès il fausdra faire avec la session:
-            $post->setUsers($usersRepository->find(1));
+            $post->setUsers($this->getUser());
 
-            $post->setFeaturedImage('default.webp'); // on fera la manipulation d'image plus tard
+            // on récupère l'image envoyé par le form
+            $featuredImage = $form->get('featuredImage')->getData();
+
+            // on passe l'image envoyé du form à la function square que l'on a créé dans pictureService.php pour devenir carré:
+            $image = $pictureService->square($featuredImage, 'articles', 300);
+
+            $post->setFeaturedImage($image); // ensuite on stocke dans la bdd pour la table post
 
             $em->persist(($post));
             $em->flush();
