@@ -8,8 +8,18 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-}/*# sourceMappingURL=app.css.map */
+}
 
 .img-logo {
   height: 40px;
 }
+
+.text-red {
+  color: red;
+}
+.text-orange {
+  color: orange;
+}
+.text-green {
+  color: green;
+}/*# sourceMappingURL=app.css.map */

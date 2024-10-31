@@ -2,7 +2,10 @@
 
 {% block title %}M'inscrire
 {% endblock %}
-
+{% block importmap %}
+	{# il faut faire un nouveau point d'entrer dans le fichier importmap.php avec register qui lui permettra daller chercher le fichier /assets/js/register.js et ensuite on fait un block dans le fichier twig en mettant qd même le fichier par défaut app #}
+	{{ importmap(['app','register']) }}
+{% endblock %}
 {% block body %}
 	<h1>Register</h1>
 
@@ -20,12 +23,18 @@
 		{{ form_row(registrationForm.plainPassword, {
                 label: 'Password'
             }) }}
+		<div>
+			<p>Complexité du mot de passe :
+				<span id="entropy" class="text-red">Très faible</span>
+				(la complexité minimale acceptée est "Fort")</p>
+		</div>
 	</div>
+
 	<div>
 		{{ form_row(registrationForm.agreeTerms) }}
 	</div>
-
-	<button type="submit" class="btn">M'inscrire</button>
+	{# on désactive le bouton et on l'activera en js #}
+	<button type="submit" class="btn" disabled id="submit-button">M'inscrire</button>
 	{{ form_end(registrationForm) }}
 	<p>Déjà inscrit(e) ?
 		<a href="{{path('app_login')}}">Me connecter</a>

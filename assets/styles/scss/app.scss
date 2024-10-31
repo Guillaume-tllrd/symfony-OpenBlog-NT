@@ -9,4 +9,17 @@ body {
     align-items: center;
     padding: 10px;
 }
-
+.img-logo{
+    height: 40px;
+}
+.text{
+    &-red{
+        color: red;
+    }
+    &-orange{
+        color: orange
+    }
+    &-green {
+        color: green;
+    }
+  }
