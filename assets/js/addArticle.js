@@ -4,7 +4,7 @@ document.getElementById("add_post_form_featuredImage").addEventListener("change"
 
 function checkfile(){
     let preview = document.querySelector(".preview");
-    let image = previwew.querySelector("img");
+    let image = preview.querySelector("img");
     let file = this.files[0];
     console.log(this.files);
     const types = ["image/jpeg", "image/png", "image/webp"];
@@ -23,7 +23,7 @@ function checkfile(){
         }
     }else {
         image.src = "";
-        previwew.style.display = "none"
+        preview.style.display = "none"
     }
     
 }
