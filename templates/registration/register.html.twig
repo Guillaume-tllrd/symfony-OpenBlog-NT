@@ -4,7 +4,7 @@
 {% endblock %}
 {% block importmap %}
 	{# il faut faire un nouveau point d'entrer dans le fichier importmap.php avec register qui lui permettra daller chercher le fichier /assets/js/register.js et ensuite on fait un block dans le fichier twig en mettant qd même le fichier par défaut app #}
-	{{ importmap(['app','register']) }}
+	{{ importmap(['register']) }}
 {% endblock %}
 {% block body %}
 	<h1>Register</h1>

@@ -16,6 +16,10 @@ return [
         'path' => './assets/app.js',
         'entrypoint' => true,
     ],
+    'navbar' => [
+        'path' => './assets/js/navbar.js',
+        'entrypoint' => true,
+    ],
     'register' => [
         'path' => './assets/js/register.js',
         'entrypoint' => true,
