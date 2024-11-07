@@ -36,17 +36,21 @@ class UsersRepository extends ServiceEntityRepository implements PasswordUpgrade
     //    /**
     //     * @return Users[] Returns an array of Users objects
     //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('u')
-    //            ->andWhere('u.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('u.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    // on crée une méthode pour trouver les users par leur post, on décommente l'ex donné par défaut
+    public function getUsersByPosts($limit): array
+    {
+        // notre requête SQL/ SELECT users.*, COUNT(post.id) as total FROM 'users' LEFT JOIN posts ON posts.users_id = users.id GROUP BY users.id ORDER BY total desc;
+        return $this->createQueryBuilder('u') // createQueryBuilder permet de créer notre requête
+            ->addSelect('COUNT(p) as total')
+            ->leftJoin('u.posts', 'p')
+            ->groupBy('u.id')
+            ->orderBy('total', 'desc')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult()
+            // à partir de là on a la même requête sql au dessus en ajoutant même la limit, on a plus qu'a invoqué cette méthode dans le controller que l'on souhaite
+        ;
+    }
 
     //    public function findOneBySomeField($value): ?Users
     //    {

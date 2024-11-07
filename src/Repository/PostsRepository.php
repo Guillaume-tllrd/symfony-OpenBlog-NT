@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 /**
  * @extends ServiceEntityRepository<Posts>
  */
+// le ServiceEntityRepository étend plusieurs méthode "magique" qui permettent de trouver un post par ex findOne, je peux l'utiliser en injection de dépendance dans mon controller ex: dans MainController : $posts = $postsRepositoy->findAll()
 class PostsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
