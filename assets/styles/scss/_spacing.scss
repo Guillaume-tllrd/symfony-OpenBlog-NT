@@ -1,0 +1,63 @@
+/*
+* Margins on fait une boucle avec each
+*/
+
+@each $key, $value in $sizes{
+    // key est la valeur avant les deux points et value la valeur après les deux points
+    // ne pas oublier les S !!!!!
+    // .m_0, .m-1 ...
+    .m-#{$key}{
+        margin: #{$value};
+    }
+    .mt-#{$key}{
+        margin-top: #{$value};
+    }
+    .mb-#{$key}{
+        margin: #{$value};
+    }
+    .ml-#{$key}{
+        margin-left: #{$value};
+    }
+    .mr-#{$key}{
+        margin-right: #{$value};
+    }
+    .my-#{$key}{
+        margin-top: #{$value};
+        margin-bottom: #{$value};
+    }
+    .mx-#{$key}{
+        margin-left: #{$value};
+        margin-right: #{$value};
+    }
+}
+
+/*
+* Paddings on fait une boucle avec each
+*/
+
+@each $key, $value in $sizes{
+    // .m_0, .m-1 ...
+    .p-#{$key}{
+        padding: #{$value};
+    }
+    .pt-#{$key}{
+        padding-top: #{$value};
+    }
+    .pb-#{$key}{
+        padding: #{$value};
+    }
+    .pl-#{$key}{
+        padding-left: #{$value};
+    }
+    .pr-#{$key}{
+        padding-right: #{$value};
+    }
+    .py-#{$key}{
+        padding-top: #{$value};
+        padding-bottom: #{$value};
+    }
+    .px-#{$key}{
+        padding-left: #{$value};
+        padding-right: #{$value};
+    }
+}

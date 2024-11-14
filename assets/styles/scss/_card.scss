@@ -1,0 +1,17 @@
+//pour travailler sur le design des cartes
+.card{
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+    img{
+        width: 100%;
+    }
+    .card-body{
+        padding: 15px;
+    }
+}
+
+@media screen and (min-width:768px) {
+    .card{
+        border-radius: 15px;
+        overflow: hidden; // car les images dépasse du radius donc on cache ce qui dépasse
+    }
+}
