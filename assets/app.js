@@ -6,6 +6,8 @@ import './bootstrap.js';
  * which should already be in your base.html.twig.
  */
 import './styles/scss/app.css';
+// on importe le dossier css ckeditor
+import './styles/css/ckeditor5.css';
 
 
 console.log('This log comes from assets/app.js - welcome to AssetMapper! 🎉');
