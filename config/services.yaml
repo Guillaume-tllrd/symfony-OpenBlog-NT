@@ -25,3 +25,9 @@ services:
 
   # add more service definitions when explicit configuration is needed
   # please note that last definitions always *replace* previous ones
+
+  # On rajoute ces lignes pour FileUploadConfiguration qu'il ne peut opas appelé
+# services:
+#     App\Controller\API\:
+#         resource: '../src/Controller/API'
+#         tags: ['controller.service_arguments']

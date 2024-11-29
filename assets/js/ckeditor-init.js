@@ -1,6 +1,8 @@
 // on s'inspire du main.js du télachargement du builder ckeditor
 
    // tout ça c'est tout ce qu'on a choisi dans l'assistant au moment de l'installer sur ckeditor.com
+   // on rajoute ImageBlock,ImageCaption,ImageInline,ImageInsert,ImageInsertViaUrl manuellement pour pouvoir rajouter des images dans l'édieteur Ne pas oublier ImageUpload et simpleUploadAdapter Puis ne pas oublier de les mettre dans les plugins
+//    Puis on doit aller dans le fichier js pour aller configuer singleUpload
 import {
 	ClassicEditor,
 	AccessibilityHelp,
@@ -20,6 +22,16 @@ import {
 	Highlight,
 	HtmlComment,
 	HtmlEmbed,
+	ImageBlock,
+	ImageCaption,
+	ImageInline,
+	ImageInsert,
+	ImageInsertViaUrl,
+	ImageResize,
+	ImageStyle,
+	ImageTextAlternative,
+	ImageToolbar,
+	ImageUpload,
 	Indent,
 	IndentBlock,
 	Italic,
@@ -28,6 +40,7 @@ import {
 	RemoveFormat,
 	SelectAll,
 	ShowBlocks,
+	SimpleUploadAdapter,
 	SourceEditing,
 	SpecialCharacters,
 	SpecialCharactersArrows,
@@ -82,6 +95,7 @@ const editorConfig = {
 			'|',
 			'specialCharacters',
 			'link',
+			'insertImage',
 			'insertTable',
 			'highlight',
 			'blockQuote',
@@ -110,6 +124,16 @@ const editorConfig = {
 		Highlight,
 		HtmlComment,
 		HtmlEmbed,
+		ImageBlock,
+		ImageCaption,
+		ImageInline,
+		ImageInsert,
+		ImageInsertViaUrl,
+		ImageResize,
+		ImageStyle,
+		ImageTextAlternative,
+		ImageToolbar,
+		ImageUpload,
 		Indent,
 		IndentBlock,
 		Italic,
@@ -117,6 +141,7 @@ const editorConfig = {
 		Paragraph,
 		RemoveFormat,
 		SelectAll,
+		SimpleUploadAdapter,
 		ShowBlocks,
 		SourceEditing,
 		SpecialCharacters,
@@ -220,10 +245,14 @@ const editorConfig = {
 			}
 		}
 	},
+	// on oublie pas de configurer simpleUpload manuellement pour l'instertion d'image que l'on envoie à une api qu'on doit créer dans controller, on le fait à lamain sans étendre abractcontroller
 	placeholder: 'Entrez ici votre article',
-	table: {
-		contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+	simpleUpload: {
+		uploadUrl: "/api/file/upload",
 	},
+	// table: {
+	// 	contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+	// },
 	translations: [translations]
 };
 // on change le queryselector par l'id de la textarea 
